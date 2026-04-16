@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"encoding/json"
 )
@@ -16,20 +15,7 @@ type LocationArea struct {
 	} `json:"results"`
 }
 
-func printGiven20(url string, state *config) {
-	location, err := getLocation(url)
-	if err != nil{
-		fmt.Println(err)
-		return
-	}
-	for _, result := range location.Results {
-		fmt.Println(result.Name)
-	}
-	state.Next = location.Next
-	state.Previous = location.Previous
-}
-
-func getLocation(url string) (*LocationArea, error) {
+func GetLocation(url string) (*LocationArea, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, err

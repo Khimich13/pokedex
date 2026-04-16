@@ -1,4 +1,4 @@
-package main
+package repl
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ func TestCleanInput(t *testing.T) {
 		},
 	}
 	for _, c := range cases {
-		actual := cleanInput(c.input)
+		actual := CleanInput(c.input)
 		if len(actual) != len(c.expected) {
 			t.Errorf("Wrong amount of words returned")
 		}

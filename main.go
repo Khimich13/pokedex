@@ -4,24 +4,30 @@ import (
 	"fmt"
 	"os"
 	"bufio"
-	"pokedex/internal/api"
+	"github.com/Khimich13/pokedex/internal/repl"
 )
 
 func main() {
 	url := "https://pokeapi.co/api/v2/location-area/"
+	state := repl.Config{Next: &url}
+
 	scanner := bufio.NewScanner(os.Stdin)
-	state := config{}
-	state.Next = &url
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
 		input := scanner.Text()
-		cleanedInput := cleanInput(input)
+		cleanedInput := repl.CleanInput(input)
 		if len(cleanedInput) == 0 {
 			fmt.Println("Unknown command")
-		} else if command, ok := commands[cleanedInput[0]]; !ok{
+			continue
+		} 
+
+		command, ok := repl.Commands[cleanedInput[0]]
+		if !ok {
 			fmt.Println("Unknown command")
-		} else if err := command.callback(&state); err != nil {
+			continue
+		} 
+		if err := command.Callback(&state); err != nil {
 			fmt.Println(err)
 		}
 	}
