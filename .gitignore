@@ -1,0 +1,14 @@
+# Go build artifacts
+bin/
+*.exe
+*.out
+
+# IDE stuff
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+
+pokedex
+repl.log
