@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"bufio"
+	"pokedex/internal/api"
 )
 
 func main() {
