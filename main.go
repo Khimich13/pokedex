@@ -5,12 +5,13 @@ import (
 	"os"
 	"bufio"
 	"github.com/Khimich13/pokedex/internal/repl"
+	"math/rand"
+	"time"
 )
 
 func main() {
-	url := "https://pokeapi.co/api/v2/location-area/"
-	state := repl.Config{Next: &url}
-
+	rand.Seed(time.Now().UnixNano())
+	state := repl.Config{}
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -20,14 +21,14 @@ func main() {
 		if len(cleanedInput) == 0 {
 			fmt.Println("Unknown command")
 			continue
-		} 
-
+		}
 		command, ok := repl.Commands[cleanedInput[0]]
 		if !ok {
 			fmt.Println("Unknown command")
 			continue
-		} 
-		if err := command.Callback(&state); err != nil {
+		}
+
+		if err := command.Callback(&state, cleanedInput[1:]); err != nil {
 			fmt.Println(err)
 		}
 	}
